@@ -9,7 +9,7 @@ end
 
 
 
-
+"each", "item" "in" "a" "line becomes","array of strings. " ]
 
 # CSV.foreach('support/owners.csv') do |row|
 #   puts row.inspect
