@@ -26,7 +26,8 @@ module BankAccount
     @@account_arrays = []
 
 # create accounts from CSV! As a more semantic name.
-    def self.createAccounts
+# "the self keyword allows your to call the method directly on the class and not an instance of the class."
+    def self.create_accounts
       # CSV.foreach('support/accounts.csv') do |row1|
       #   # @@account_arrays << self.new
       #   print row1
@@ -49,28 +50,25 @@ module BankAccount
 
 # self.find(id) - returns an instance of Account where the value of the id field in the CSV matches the passed parameter
 
-   def self.all
-     self.createAccounts
-   end
+  #  def self.all
+  #    self.createAccounts
+  #  end
 
     # self.find(id) - returns an instance of Account where the value of the id field in the CSV matches the passed parameter[ ]
 
     def self.find(param_id)
-      self.createAccounts
-      createAccounts.each do |account_object|
+      @@account_arrays.each do |account_object|
         # if the account object id matches the passed in param
+
         if account_object.id == param_id
           # print that account
-          puts account_object.id
+          return account_object
         end
+      end
     end
 
   # self.find(id) - returns an instance of Account where the value of the id field in the CSV matches the passed parameter[ ]
   #
-
-
-
-
 
 # ----------- initializer---------- #
 # initialized Method, creating account objects.
@@ -124,15 +122,25 @@ end
 
 # id, balance, open_date
 
-allusers = BankAccount::Account.all
+allusers = BankAccount::Account.create_accounts
 allusers.each do |user|
   puts "Account Id: #{user.id}, Balance: $#{user.balance}, Date Opened: #{user.open_date}"
 end
+#
 
-allusers = BankAccount::Account.find(1212)
-allusers.each do |match|
-  puts match
-end
+BankAccount::Account.create_accounts
+finduser = BankAccount::Account.find("1212")
+puts "You searched for Account Id: #{finduser.id} Balance: #{finduser.balance} Opening Date:#{finduser.open_date}"
+
+
+# print allusers
+#   # allusers.each do |match|
+#   #   puts match
+#   #   puts "This is a test"
+#   # end
+
+
+
 # matches.each do |match|
 #   puts match
 # end
