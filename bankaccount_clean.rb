@@ -2,16 +2,19 @@ require 'csv'
 require 'colorize'
 require 'awesome_print'
 require 'time'
+
+##########################
+#         WAVE 3         #
+# ##########################
+
+
 # rename item Bank?
 module BankAccount
-  # credit idea of setting constnats from Rowan.
-
-
   class Account
 
     attr_accessor :id, :balance, :open_date
-    # could I make this a hash? So, that I don't have to build it below?
-
+#Q: could I make this a hash? So, that I don't have to build it below?
+#A: Yes!
     def initialize(account_info)
       @id = account_info[:id]
       @balance = account_info[:balance]
@@ -24,21 +27,22 @@ module BankAccount
         raise ArgumentError, "cant create account with negative balance"
       end
     end
-
-    # def catch_error(amount)
-    #   raise TypeError, "You lack sufficient funds" if amount == false
-    #   catch_error false
-    # end
+# Can't remember what iteration this was used in. Delete once you complete MVP.
+# def catch_error(amount)
+#   raise TypeError, "You lack sufficient funds" if amount == false
+#   catch_error false
+# end
     def to_s
       return "Account ID: #{id}, Balance: #{balance}, Open Date: #{open_date}".colorize(:blue)
     end
 
     def withdraw(amount)
-      if (@balance - (amount + self.class::withdraw_fee)) >=
-        self.class::account_min_balance
-          @balance -= (amount + self.class::withdraw_fee)
+# if the account balnace goes below
+      if (@balance - (amount + @withdraw_fee)) >=
+        @account_min_balance
+          @balance -= (amount + @withdraw_fee)
           return @balance
-      elsif (@balance - amount) < self.class::account_min_balance
+      elsif (@balance - amount) < @account_min_balance
         puts "That's impossible you cannot create account with insuficient funds."
         return @balance
       end
@@ -54,7 +58,6 @@ module BankAccount
       id = nil
       balance = nil
       open_date = nil
-
 # changed the naming to semantically reflect the holding of data.
       account_list = []
 # changed this to be more explicit about holding my data.
@@ -80,14 +83,12 @@ module BankAccount
     end
   end
 
-
-#
-## :id, ##:balance, ##:open_date
+######### check to make sure Account class is working #########
 account1 = BankAccount::Account.new({:id => 2200, :balance => 30000, :open_date => Time.parse('2016-01-17 12:12:12 -0800')})
 puts account1
 # output: Id: 2200, Balance: 30000, Open Date: 2016-01-17 12:12:12 -0800
 
-
+# 2nd Class, 1st Child
   class SavingsAccount < Account
 # Input rate is assumed to be a percentage (i.e. 0.25).
 # The formula for calculating interest is balance * rate/100
@@ -107,10 +108,18 @@ puts account1
       end
   end
 # Updated withdrawal functionality:
-# Each withdrawal 'transaction' incurs a fee of $2 that is taken out of the balance.
     def withdraw_with_check(amount)
+
       if(@balance - amount) > -1000 && @checks_used_in_month < 3
         @balance -=amount
+        return @balance
+      elsif (@balance - amount) > -1000 && @checks_used_in_month >=3
+# Each withdrawal 'transaction' incurs a fee of $2 that is taken out of the balance.
+        @balance -= (amount + withdraw_fee)
+        @checks_used_in_month +=1
+        return @balance
+      else
+        puts "You don't have enought money to write a check. Your balance is #{@balance}"
         return @balance
       end
     end
@@ -122,10 +131,12 @@ puts account1
     end
   end
 
-
+######### check to make sure SavingsAccount class is working #########
 # account1 = BankAccount::SavingsAccount.new({:id => 2200, :balance => 30000, :open_date => Time.parse('2016-01-17 12:12:12 -0800')})
 # puts account1.add_interest()
 
+
+# 3rd Class, 2nd Child
 # Create a CheckingAccount class which should inherit behavior from the Account class.
   class CheckingAccount < Account
   # Create a CheckingAccount class which should inherit behavior from the Account
@@ -155,9 +166,8 @@ puts account1
   end
 end
 
-
 account1 = BankAccount::CheckingAccount.new({:id => 2200, :balance => 30000, :open_date => Time.parse('2016-01-17 12:12:12 -0800')})
-puts account1.withdraw_with_check(200)
+puts account1.withdraw_with_check(300)
 
 
 
@@ -177,34 +187,4 @@ puts account1.withdraw_with_check(200)
 #
 # def reset_checks
 #     @checks_used_in_month = 0
-# end
-
-
-
-
-
-
-
-
-##########################
-#         WAVE 3         #
-# ##########################
-# class SavingsAccount < Account
-#   def initialize(account_info)
-#     @id = account_info[:id]
-#     @open_date = open_date[:open_date]
-#     @balance = balance[:balance]
-#     @@transaction = []
-#     if @balance <= 10
-#       puts "Problem: you lack funds!"
-#       raise ArgumentError "Cannot have less than $10 in your account."
-#     end
-#   end
-#   def self.withdraw(amount)
-#    something.each do |transaction|
-#      transaction += 2
-#    end
-#
-#   end
-# # class end. DONT DELETE.
 # end
