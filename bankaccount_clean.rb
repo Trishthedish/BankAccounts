@@ -36,36 +36,46 @@ module BankAccount
         return @balance
       end
     end
-    def self.all
+
+    def deposit(amount)
+      @balance = @balance + amount
+      puts "#{name} Deposited: $#{amount}. New Balance: $#{@balance}."
+      return @balance
+    end
+
+    def self.all(grab_csv)
+      id = nil
+      balance = nil
+      open_date = nil
+
+# changed the naming to semantically reflect the holding of data.
+      account_list = []
+# changed this to be more explicit about holding my data.
+      CSV.foreach(grab_csv) do |row|
+        id = row[0]
+        balance = row[1] # convert to interger
+        open_date = row[2]
+        account_inception = {id: id, balance: balance, open_date: open_date}
+        account_list << self.new(account_inception)
+      end
+      account_list
+    end
+
+    def self.find(id)
+      accounts_search = []
+      accounts_search = Bank::Account.all("./support/accounts.csv")
+
+      accounts_search.each do |account|
+        if account.id == id
+          return account
+        end
+      end
+    end
+  end
+end
 
 
 
-
-
-
-  #   @@account_arrays = []
-  #   def self.create_accounts
-  #     CSV.open('support/accounts.csv').each do |row|
-  #                                   #id  #balance  #date
-  #       @@account_arrays << self.new(row[0], row[1], row[2])
-  #     end
-  #     return @@account_arrays
-  #   end
-  #
-  #   def self.find(param_id)
-  #     @@account_arrays.each do |account_object|
-  #       if account_object.id == param_id
-  #         return account_object
-  #       end
-  #     end
-  #   end
-  #
-
-  #   def deposit(amount)
-  #     @balance = @balance + amount
-  #     puts "#{name} Deposited: $#{amount}. New Balance: $#{@balance}."
-  #   end
-  # end
 #module ends
 # end
 
