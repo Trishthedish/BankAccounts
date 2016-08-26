@@ -127,7 +127,7 @@ end
 savingacct1 = SavingsAccount.new(id: 1212)
 
 ap savingacct1.inspect
-  
+
 
 
 
