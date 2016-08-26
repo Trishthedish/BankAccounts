@@ -104,10 +104,21 @@ class SavingsAccount < Account
     @id = account_info[:id]
     @open_date = open_date[:open_date]
     @balance = balance[:balance]
+    @@transaction = []
     if @balance <= 10
       puts "Problem: you lack funds!"
       raise ArgumentError "Cannot have less than $10 in your account."
     end
+  end
+
+# Updated withdrawal functionality: Each withdrawal 'transaction' incurs a fee of $2 that is taken out of the balance.
+  def self.withdraw(amount)
+# could I create an empty hash and for each transcation of withdrawl function. Can I add $2 fee.
+  # likely some shovling will happen here.
+   something.each do |transaction|
+     transaction += 2
+   end
+
   end
 
 # class end. DONT DELETE.
@@ -116,17 +127,13 @@ end
 savingacct1 = SavingsAccount.new(id: 1212)
 
 ap savingacct1.inspect
-    # user1 = User.new(name: "Sophia", email: "email@email.com")
-    # ap user1.inspect
+  
 
 
 
 
 
-#   a.
-#
-# 2. It should include the following updated functionality:
-#       a. initial balance cannot be less than $10. If it is, this will raise an ArgumentError
+
 #       b. Updated withdrawal functionality: Each withdrawal 'transaction' incurs a fee of $2 that is taken out of the balance.
 #       c. Does not allow the account to go below the $10 minimum balance - Will output a warning message and return the original un-modified balance
 # 3. It should include the following new method:
