@@ -1,65 +1,32 @@
 require 'csv'
 require 'colorize'
 require 'awesome_print'
-# CSV.open("BankAccounts/support/owners.csv", "r") do |row|
-#   puts line[0]
-# end
-
-# require 'csv'
-# owners = CSV.read('support/owners.csv')
-# #
-# CSV.foreach('support/owners.csv') do |row1|
-#   puts row1.inspect
-# end
-# How can you?
-# #   1).  Get the Get the Gross Pay of the 3rd employee listed
-# puts "Gross Pay of 3rd Employee listed"
-#       # [array of object][title of objects]
-#       # [in 3 indices][# indice 6]
-# puts csv[3][6]
 
 module BankAccount
-  # new Account class
+
+  # I. new Account class
   class Account
     # use only: if you wanna access it USE A DOT!
     attr_accessor :id, :balance, :open_date
     @@account_arrays = []
 
 # create accounts from CSV! As a more semantic name.
-# "the self keyword allows your to call the method directly on the class and not an instance of the class."
+# "the self keyword allows you to call the method directly on the class and not an instance of the class."
+
     def self.create_accounts
-      # CSV.foreach('support/accounts.csv') do |row1|
-      #   # @@account_arrays << self.new
-      #   print row1
-      # Above Outcome:
-      # ["each", "item" "in" "a" "line becomes","array of strings. "]
-      #
-      # CSV.open('support/accounts.csv').each do |column|
-      #   puts "Each line: #{column[0]}"
-      # # Above Outcome:
-      # # prints column 0, so all of the account nums printed.
       CSV.open('support/accounts.csv').each do |row|
-                                    #id    #balance  #date
+                                    #id  #balance  #date
         @@account_arrays << self.new(row[0], row[1], row[2])
       end
       return @@account_arrays
     end
+# method returns a collection of Account instances  respresenting all accounts
 
-# method retursn a collection of Account instances  respresenting all accounts
 
-
-# self.find(id) - returns an instance of Account where the value of the id field in the CSV matches the passed parameter
-
-  #  def self.all
-  #    self.createAccounts
-  #  end
-
-    # self.find(id) - returns an instance of Account where the value of the id field in the CSV matches the passed parameter[ ]
-
+# -----------find method on self ---------- #
     def self.find(param_id)
       @@account_arrays.each do |account_object|
         # if the account object id matches the passed in param
-
         if account_object.id == param_id
           # print that account
           return account_object
@@ -67,8 +34,7 @@ module BankAccount
       end
     end
 
-  # self.find(id) - returns an instance of Account where the value of the id field in the CSV matches the passed parameter[ ]
-  #
+    # self.find(id) - returns an instance of Account where the value of the id field in the CSV matches the passed parameter
 
 # ----------- initializer---------- #
 # initialized Method, creating account objects.
@@ -78,12 +44,10 @@ module BankAccount
       @id = id
       @balance = balance.to_i
       @open_date = open_date
-      # do I have to use "initial"
         if @balance < 0
           puts "You cannot do anything."
           raise ArgumentError, "cant create account with negative balance"
         end
-      # @reciept = []
     end
 
 # ----------- error handling method ----------- #
@@ -93,7 +57,7 @@ module BankAccount
     end
 
 # ----------- withdraw method ----------- #
-# the withdraw method does not allow the account to go negative [ ]
+# the withdraw method does not allow the account to go negative [x]
 # Will puts a warning message [x]
 # then return the original un-modified balance [x]
 
@@ -120,42 +84,58 @@ module BankAccount
 #module ends
 end
 
-# id, balance, open_date
 
-allusers = BankAccount::Account.create_accounts
-allusers.each do |user|
-  puts "Account Id: #{user.id}, Balance: $#{user.balance}, Date Opened: #{user.open_date}"
+##########################
+#         WAVE 3         #
+##########################
+# 1. Create a SavingsAccount class [x]
+# which should inherit behavior from the Account class. [x]
+class SavingsAccount < Account 
+
 end
+
+
+
+
+
+
+#   a.
+#
+# 2. It should include the following updated functionality:
+#       a. initial balance cannot be less than $10. If it is, this will raise an ArgumentError
+#       b. Updated withdrawal functionality: Each withdrawal 'transaction' incurs a fee of $2 that is taken out of the balance.
+#       c. Does not allow the account to go below the $10 minimum balance - Will output a warning message and return the original un-modified balance
+# 3. It should include the following new method:
+#     a. add_interest(rate): Calculate the interest on the balance and add the interest to the balance.
+#     b. Return the interest that was calculated and added to the balance (not the updated balance). Input rate is assumed to be a percentage (i.e. 0.25).
+#     1. The formula for calculating interest is balance * rate/100
+# Example: If the interest rate is 0.25% and the balance is $10,000, then the interest that is returned is $25 and the new balance becomes $10,025.
 #
 
-BankAccount::Account.create_accounts
-finduser = BankAccount::Account.find("1212")
-puts "You searched for Account Id: #{finduser.id} Balance: #{finduser.balance} Opening Date:#{finduser.open_date}"
-
-
-# print allusers
-#   # allusers.each do |match|
-#   #   puts match
-#   #   puts "This is a test"
-#   # end
 
 
 
-# matches.each do |match|
-#   puts match
+# ------ Calling things for checking purposes for Wave2------- #
+
+# allusers = BankAccount::Account.create_accounts
+# allusers.each do |user|
+#   puts "Account Id: #{user.id}, Balance: $#{user.balance}, Date Opened: #{user.open_date}"
 # end
+# #
+#
+# BankAccount::Account.create_accounts
+# finduser = BankAccount::Account.find("1212")
+# puts "You searched for Account Id: #{finduser.id} Balance: #{finduser.balance} Opening Date:#{finduser.open_date}"
+
 
 # BankAccount::Account.all
 # ap BankAccount::Account.all
 
- # .each do ||
- #
- # end
-
-
 # puts @@account_arrays[0].balance
 # puts @@account_arrays[0].open_date
 
+
+# Testing purposes #
 # ---- Creating New Acct Objects & giving them aprop arguments ---- #
 
                                    #name  #id  #balance
@@ -170,8 +150,6 @@ puts "You searched for Account Id: #{finduser.id} Balance: #{finduser.balance} O
 # puts "balance $#{account2.balance}"
 
 # account2.display_balance
-
-
 
 ##########################
 #         WAVE 2          #

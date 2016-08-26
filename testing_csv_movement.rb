@@ -1,15 +1,63 @@
-require 'csv'
-owners = CSV.read('support/owners.csv')
-#
-CSV.foreach('support/owners.csv') do |row1|
-  puts row1.inspect
+
+
+array = [1, 2, 3, 4, 5, 6]
+
+
+def array.find
+  array.find(3)
 end
 
 
+# CSV.foreach('support/accounts.csv') do |row1|
+#   # @@account_arrays << self.new
+#   print row1
+# Above Outcome:
+# ["each", "item" "in" "a" "line becomes","array of strings. "]
+#
+# CSV.open('support/accounts.csv').each do |column|
+#   puts "Each line: #{column[0]}"
+# # Above Outcome:
+# # prints column 0, so all of the account nums printed.
+
+# a place where I'm storing what things I've learned from accessing the methods after.
+
+# CSV.open("BankAccounts/support/owners.csv", "r") do |row|
+#   puts line[0]
+# end
+
+# require 'csv'
+# owners = CSV.read('support/owners.csv')
+# #
+# CSV.foreach('support/owners.csv') do |row1|
+#   puts row1.inspect
+# end
+# How can you?
+# #   1).  Get the Get the Gross Pay of the 3rd employee listed
+# puts "Gross Pay of 3rd Employee listed"
+#       # [array of object][title of objects]
+#       # [in 3 indices][# indice 6]
+# puts csv[3][6]
 
 
 
-"each", "item" "in" "a" "line becomes","array of strings. " ]
+
+
+
+
+
+
+# require 'csv'
+# owners = CSV.read('support/owners.csv')
+# #
+# CSV.foreach('support/owners.csv') do |row1|
+#   puts row1.inspect
+# end
+#
+#
+#
+#
+#
+# "each", "item" "in" "a" "line becomes","array of strings. " ]
 
 # CSV.foreach('support/owners.csv') do |row|
 #   puts row.inspect
