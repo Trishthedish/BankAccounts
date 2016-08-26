@@ -88,12 +88,36 @@ end
 ##########################
 #         WAVE 3         #
 ##########################
-# 1. Create a SavingsAccount class [x]
-# which should inherit behavior from the Account class. [x]
-class SavingsAccount < Account 
 
+# 1. Create a SavingsAccount class [x]
+# which should inherit behavior from the Account class.[x]
+class SavingsAccount < Account
+# initial balance cannot be less than $10, if it is, raise argument[x]
+# account info, will it be a hash??
+# would my params change or would they be stored in a hash?
+# going with Hash.
+# In order to store data and eventually mutate it?
+# in the cat dog example. it still has instnace variables.
+# yet, with the admin etc example... things used hash.
+#  :id, :balance, :open_date
+  def initialize(account_info)
+    @id = account_info[:id]
+    @open_date = open_date[:open_date]
+    @balance = balance[:balance]
+    if @balance <= 10
+      puts "Problem: you lack funds!"
+      raise ArgumentError "Cannot have less than $10 in your account."
+    end
+  end
+
+# class end. DONT DELETE.
 end
 
+savingacct1 = SavingsAccount.new(id: 1212)
+
+ap savingacct1.inspect
+    # user1 = User.new(name: "Sophia", email: "email@email.com")
+    # ap user1.inspect
 
 
 
