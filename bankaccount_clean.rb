@@ -7,8 +7,6 @@ require 'time'
 #         WAVE 3         #
 # ##########################
 
-
-# rename item Bank?
 module BankAccount
   class Account
 
@@ -166,6 +164,11 @@ puts account1
   end
 end
 
+
+# def reset_checks
+#     @checks_used_in_month = 0
+# end
+
 account1 = BankAccount::CheckingAccount.new({:id => 2200, :balance => 30000, :open_date => Time.parse('2016-01-17 12:12:12 -0800')})
 puts account1.withdraw_with_check(300)
 
@@ -185,6 +188,3 @@ puts account1.withdraw_with_check(300)
     #reset_checks: Resets the number of checks used to zero
 =end
 #
-# def reset_checks
-#     @checks_used_in_month = 0
-# end
