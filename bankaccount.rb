@@ -128,12 +128,6 @@ savingacct1 = SavingsAccount.new(id: 1212)
 
 ap savingacct1.inspect
 
-
-
-
-
-
-
 #       b. Updated withdrawal functionality: Each withdrawal 'transaction' incurs a fee of $2 that is taken out of the balance.
 #       c. Does not allow the account to go below the $10 minimum balance - Will output a warning message and return the original un-modified balance
 # 3. It should include the following new method:
@@ -146,14 +140,14 @@ ap savingacct1.inspect
 
 
 
-# ------ Calling things for checking purposes for Wave2------- #
+# -- Calling things for checking purposes for Wave2 -- #
 
 # allusers = BankAccount::Account.create_accounts
 # allusers.each do |user|
 #   puts "Account Id: #{user.id}, Balance: $#{user.balance}, Date Opened: #{user.open_date}"
 # end
-# #
-#
+
+
 # BankAccount::Account.create_accounts
 # finduser = BankAccount::Account.find("1212")
 # puts "You searched for Account Id: #{finduser.id} Balance: #{finduser.balance} Opening Date:#{finduser.open_date}"
@@ -182,9 +176,7 @@ ap savingacct1.inspect
 
 # account2.display_balance
 
-##########################
-#         WAVE 2          #
-##########################
+#---------------------- Wave 2--------------------------#
 
 # Update the Account class to be able to handle all of these fields from the CSV file used as input.[X]
       #example, manually choose the data from the first line of the CSV file and ensure you can create a new instance of your Account using that data[X]
